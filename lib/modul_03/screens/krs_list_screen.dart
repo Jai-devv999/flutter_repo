@@ -23,7 +23,7 @@ class KrsListScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: totalSks > 24 ? Colors.red : Colors.white.withOpacity(0.2),
+              color: totalSks > 24 ? Colors.red : Colors.white.withValues(alpha: .2),
               borderRadius: BorderRadius.circular(12),
             ),
             alignment: Alignment.center,
