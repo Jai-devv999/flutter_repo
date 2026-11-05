@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'academic_dashboard_screen.dart';
 
 /// Pemilik state tema aplikasi Modul 02.
@@ -19,8 +20,9 @@ class _Modul02AppState extends State<Modul02App> {
 
   void _toggleTheme() {
     setState(() {
-      _themeMode =
-          _themeMode == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
+      _themeMode = _themeMode == ThemeMode.dark
+          ? ThemeMode.light
+          : ThemeMode.dark;
     });
   }
 

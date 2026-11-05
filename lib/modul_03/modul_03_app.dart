@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../modul_03/router/app_router.dart';
 
 class Modul03App extends StatelessWidget {
@@ -12,9 +13,7 @@ class Modul03App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'KRS & State Management TRPL',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF0284C7),
-          ),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0284C7)),
           useMaterial3: true,
         ),
         routerConfig: modul03Router,

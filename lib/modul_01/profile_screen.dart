@@ -15,7 +15,7 @@ class PoliwangiProfileApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFFFFCC00),
-        ), // Biru Poliwangi
+        ), // aku ganti menjadi kuning
         useMaterial3: true,
       ),
       home: const ProfileScreen(),
@@ -54,10 +54,7 @@ class ProfileScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE0F2FE),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFFFFCC00),
-                    width: 3,
-                  ),
+                  border: Border.all(color: const Color(0xFFFFCC00), width: 3),
                 ),
                 child: const Icon(
                   Icons.school_rounded,
@@ -93,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1D4ED8),
+                    color: Color(0xFFFFCC00),
                   ),
                 ),
               ),
@@ -117,46 +114,31 @@ class ProfileScreen extends StatelessWidget {
                         label: 'Jurusan',
                         value: 'Bisnis dan Informatika',
                       ),
-                      Divider(
-                        height: 24,
-                        color: Color(0xFFF1F5F9),
-                      ),
+                      Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
                         icon: Icons.code_rounded,
                         label: 'Program Studi',
                         value: 'Sarjana Terapan TRPL',
                       ),
-                      Divider(
-                        height: 24,
-                        color: Color(0xFFF1F5F9),
-                      ),
+                      Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
                         icon: Icons.location_on_rounded,
                         label: 'Kampus',
                         value: 'Politeknik Negeri Banyuwangi',
                       ),
-                      Divider(
-                        height: 24,
-                        color: Color(0xFFF1F5F9),
-                      ),
+                      Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
                         icon: Icons.calendar_today_rounded,
                         label: 'Semester / TA',
-                        value: 'Semester 5 (2026/2027)',
+                        value: 'Semester 2 (2025/2026)',
                       ),
-                      Divider(
-                        height: 24,
-                        color: Color(0xFFF1F5F9),
-                      ),
+                      Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
                         icon: Icons.link_rounded,
                         label: 'GitHub / Portofolio',
                         value: 'github.com/Jai.dev',
                       ),
-                      Divider(
-                        height: 24,
-                        color: Color(0xFFF1F5F9),
-                      ),
+                      Divider(height: 24, color: Color(0xFFF1F5F9)),
                       _InfoRow(
                         icon: Icons.developer_mode_rounded,
                         label: 'Minat Keahlian',
@@ -167,7 +149,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-        
               const SizedBox(height: 24),
 
               // Tombol verifikasi dengan feedback SnackBar
@@ -228,11 +209,7 @@ class _InfoRow extends StatelessWidget {
             color: const Color(0xFFF0F9FF),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            size: 20,
-            color: const Color(0xFFFFCC00),
-          ),
+          child: Icon(icon, size: 20, color: const Color(0xFFFFCC00)),
         ),
         const SizedBox(width: 14),
 

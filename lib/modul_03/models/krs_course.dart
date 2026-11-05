@@ -34,7 +34,8 @@ class KrsCourse {
         name: 'Manajemen Basis Data Terdistribusi',
         lecturer: 'Tim Dosen TRPL',
         sks: 3,
-        description: 'Pengelolaan basis data NoSQL dan relasional berskala besar.',
+        description:
+            'Pengelolaan basis data NoSQL dan relasional berskala besar.',
       ),
     ];
   }

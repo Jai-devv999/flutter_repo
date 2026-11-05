@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'modul_01/profile_screen.dart';
 import 'modul_02/modul_02_app.dart';
+import 'modul_03/modul_03_app.dart';
+import 'modul_04/modul_04_app.dart';
+import 'modul_05/modul_05_app.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,13 +26,32 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  Widget _menuButton(
+    BuildContext context,
+    String label,
+    Widget Function() page,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => page()),
+            );
+          },
+          child: Text(label),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kelas Anomali'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Kelas Anomali'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -36,70 +59,22 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Text(
               'Daftar Modul Praktikum',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 30),
-
-            // MODUL 01
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const PoliwangiProfileApp(),
-                    ),
-                  );
-                },
-                child: const Text('Modul 01 - Profil Mahasiswa'),
-              ),
+            _menuButton(
+              context,
+              'Modul 01 - Profil Mahasiswa',
+              () => PoliwangiProfileApp(),
             ),
-
-            const SizedBox(height: 12),
-
-            // MODUL 02
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Modul02App(),
-                    ),
-                  );
-                },
-                child: const Text('Modul 02 - Dashboard Akademik'),
-              ),
+            _menuButton(
+              context,
+              'Modul 02 - Dashboard Akademik',
+              () => Modul02App(),
             ),
-
-            const SizedBox(height: 12),
-
-            // MODUL 03
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Modul 03'),
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            // MODUL 04
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Modul 04'),
-              ),
-            ),
+            _menuButton(context, 'Modul 03', () => Modul03App()),
+            _menuButton(context, 'Modul 04', () => Modul04App()),
+            _menuButton(context, 'Modul 05', () => Modul05App()),
           ],
         ),
       ),

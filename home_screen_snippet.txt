@@ -1,0 +1,16 @@
+// 1) di bagian atas lib/main.dart
+import 'modul_05/modul_05_app.dart';
+
+// 2) di HomeScreen, di samping tombol modul lain (sesuaikan gaya tombolnya):
+ElevatedButton(
+  onPressed: () => Navigator.push(
+    context,
+    MaterialPageRoute<void>(builder: (_) => const Modul05App()),
+  ),
+  child: const Text('Modul 05'),
+),
+
+// Catatan: Modul05App adalah MaterialApp sendiri. Kalau dibuka lewat Navigator.push
+// dari HomeScreen, itu tetap jalan, tetapi tidak ada tombol kembali ke HomeScreen.
+// Alternatif: pakai TaskListScreen() langsung (import screens/task_list_screen.dart)
+// supaya tombol kembali muncul otomatis.

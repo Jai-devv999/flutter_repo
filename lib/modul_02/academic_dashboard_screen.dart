@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'models/course.dart';
 import 'widgets/course_card.dart';
 import 'widgets/header_banner.dart';
 
-/// Tampilan dashboard. Widget ini TIDAK mengatur tema sendiri: ia membaca
-/// `themeMode` dari konstruktor dan melaporkan aksi tombol lewat
-/// `onToggleTheme`. Tema tetap terpusat di `MaterialApp` (modul_02_app.dart).
-class AcademicDashboardScreen extends StatelessWidget {
+/// Tampilan dashboard akademik.
+class AcademicDashboardScreen extends StatefulWidget {
   const AcademicDashboardScreen({
     super.key,
     this.themeMode = ThemeMode.light,
@@ -16,11 +15,30 @@ class AcademicDashboardScreen extends StatelessWidget {
   final ThemeMode themeMode;
   final VoidCallback? onToggleTheme;
 
-  // Daftar mata kuliah bersifat tetap (tidak berubah selama aplikasi hidup),
-  // sehingga cukup menjadi data statis — bukan state.
+  @override
+  State<AcademicDashboardScreen> createState() =>
+      _AcademicDashboardScreenState();
+}
+
+class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
+  // Daftar mata kuliah
   static final List<Course> _courses = Course.getSampleCourses();
 
-  bool get _isDarkMode => themeMode == ThemeMode.dark;
+  // Kategori yang sedang dipilih
+  String _selectedCategory = 'Semua';
+
+  bool get _isDarkMode => widget.themeMode == ThemeMode.dark;
+
+  // Daftar mata kuliah berdasarkan kategori yang dipilih
+  List<Course> get _filteredCourses {
+    if (_selectedCategory == 'Semua') {
+      return _courses;
+    }
+
+    return _courses
+        .where((course) => course.category == _selectedCategory)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,49 +52,73 @@ class AcademicDashboardScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            icon: Icon(_isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
+            icon: Icon(
+              _isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+            ),
             tooltip: _isDarkMode ? 'Mode Terang' : 'Mode Gelap',
-            // Aksi diteruskan ke atas; layar tidak mengubah tema sendiri.
-            onPressed: onToggleTheme,
+            onPressed: widget.onToggleTheme,
           ),
         ],
       ),
-      // LayoutBuilder membaca ukuran layar untuk menentukan tata letak responsif
+
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Breakpoint 600dp: Tablet / Landscape menggunakan 2 kolom
+          // Filter kategori
+          final filterWidget = Wrap(
+            spacing: 8.0,
+            children: ['Semua', 'Teori', 'Praktikum'].map((category) {
+              return ChoiceChip(
+                label: Text(category),
+                selected: _selectedCategory == category,
+                onSelected: (selected) {
+                  if (selected) {
+                    setState(() {
+                      _selectedCategory = category;
+                    });
+                  }
+                },
+              );
+            }).toList(),
+          );
+
+          // Tablet / Desktop
           if (constraints.maxWidth >= 600) {
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Kolom kiri: banner profil
-                  const Expanded(
+                  // Kolom kiri
+                  Expanded(
                     flex: 2,
                     child: SingleChildScrollView(
-                      child: HeaderBanner(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const HeaderBanner(),
+                          const SizedBox(height: 16),
+                          filterWidget,
+                        ],
+                      ),
                     ),
                   ),
+
                   const SizedBox(width: 20),
-                  // Kolom kanan: jumlah kolom mengikuti ruang yang tersedia.
+
+                  // Kolom kanan
                   Expanded(
                     flex: 3,
                     child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                        // Lebar kartu tidak melebihi 340 dp. Pada ruang yang
-                        // cukup GridView menambah kolom; pada ruang sempit
-                        // jumlah kolom otomatis berkurang.
-                        maxCrossAxisExtent: 340,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        // Tinggi eksplisit agar seluruh isi CourseCard muat.
-                        // Jangan gabungkan dengan childAspectRatio.
-                        mainAxisExtent: 240,
-                      ),
-                      itemCount: _courses.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 340,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            mainAxisExtent: 240,
+                          ),
+                      itemCount: _filteredCourses.length,
                       itemBuilder: (context, index) {
-                        return CourseCard(course: _courses[index]);
+                        return CourseCard(course: _filteredCourses[index]);
                       },
                     ),
                   ),
@@ -85,18 +127,30 @@ class AcademicDashboardScreen extends StatelessWidget {
             );
           }
 
-          // Default (smartphone): tata letak 1 kolom vertikal
+          // Smartphone
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
               const HeaderBanner(),
+
               const SizedBox(height: 16),
+
+              // Filter kategori
+              filterWidget,
+
+              const SizedBox(height: 16),
+
               Text(
-                'Mata Kuliah Semester 5 (${_courses.length} Terdaftar)',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                'Mata Kuliah Semester 5 (${_filteredCourses.length} Terdaftar)',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+
               const SizedBox(height: 12),
-              ..._courses.map((course) => CourseCard(course: course)),
+
+              ..._filteredCourses.map((course) => CourseCard(course: course)),
             ],
           );
         },

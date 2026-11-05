@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../models/krs_course.dart';
 
 // Notifier Riverpod 3 untuk mengelola daftar KRS.
@@ -9,7 +10,9 @@ class KrsNotifier extends Notifier<List<KrsCourse>> {
   // Menambah mata kuliah ke dalam KRS dengan validasi duplikasi & kuota SKS
   bool tambahMataKuliah(KrsCourse course) {
     // 1. Cek duplikasi kode mata kuliah
-    final exists = state.any((c) => c.code.toUpperCase() == course.code.toUpperCase());
+    final exists = state.any(
+      (c) => c.code.toUpperCase() == course.code.toUpperCase(),
+    );
     if (exists) return false;
 
     // 2. Cek batas maksimal 24 SKS per semester
