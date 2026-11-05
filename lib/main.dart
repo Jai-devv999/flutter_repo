@@ -5,6 +5,7 @@ import 'modul_02/modul_02_app.dart';
 import 'modul_03/modul_03_app.dart';
 import 'modul_04/modul_04_app.dart';
 import 'modul_05/modul_05_app.dart';
+import 'modul_06/modul_06_app.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,6 +76,7 @@ class HomeScreen extends StatelessWidget {
             _menuButton(context, 'Modul 03', () => Modul03App()),
             _menuButton(context, 'Modul 04', () => Modul04App()),
             _menuButton(context, 'Modul 05', () => Modul05App()),
+            _menuButton(context, 'Modul 06', () => Modul06App()),
           ],
         ),
       ),

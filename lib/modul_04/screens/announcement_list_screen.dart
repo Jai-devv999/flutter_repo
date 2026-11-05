@@ -129,7 +129,7 @@ class _AnnouncementListScreenState extends State<AnnouncementListScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         scrollDirection: Axis.horizontal,
         itemCount: _kategori.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        separatorBuilder: (_, _) => const SizedBox(width: 8),
         itemBuilder: (context, index) {
           final String kategori = _kategori[index];
           return ChoiceChip(
